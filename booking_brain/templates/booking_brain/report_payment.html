@@ -1,0 +1,155 @@
+{% extends 'booking_brain/base.html' %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+<div class="row g-4">
+<h1 class="mb-4">Payment report</h1>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+            aria-selected="true">Daily</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+            data-bs-target="#nav-profile" type="button" role="tab"
+            aria-controls="nav-profile" aria-selected="false">Weekly</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+            data-bs-target="#nav-contact" type="button" role="tab"
+            aria-controls="nav-contact" aria-selected="false">Monthly</button>
+    </div>
+</nav>
+<div class="tab-content pt-3" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <!-- daily queries  -->
+        {% if payments_today.objects %}
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Daily</h6>
+                <table class="table table-striped table-hover" id="daily">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Payment_method</th>
+                        <th>Payment Ref</th>
+                        <th>Amount_EA</th>
+                        <th>Amount_Z_com</th>
+                        <th>Amount_M_com</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>User</th>
+                    </thead>
+                    {% for p in payments_today.objects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td><td>{{ p }}</td> <td>{{p.Payment_method}}</td><td>{{p.Payment_ref}}</td><td>{{p.Amount_EA}}</td>
+                        <td>{{p.Amount_Z_com}}</td><td>{{p.Amount_M_com}}</td><td>{{p.Amount}}</td><td>{{p.Date_created}}</td><td>{{p.user}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tfoot>
+                        <tr>
+                            <td></td><td>Total</td><td></td><td></td>
+                            <td>{{payments_today.amount_ea}}</td>
+                            <td>{{payments_today.amount_z_com}}</td>
+                            <td>{{payments_today.amount_m_com}}</td>
+                            <td>{{payments_today.amount}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        </tfoot>
+                </table>
+                <button class="btn-secondary" id="todayButton">Generate PDF</button>
+                <button class="btn-secondary" id="todayButtonX">Generate XLS</button>
+
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <!-- week queries -->
+        {% if payments_this_week.objects %}
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Weekly</h6>
+                <table class="table table-striped table-hover" id="weekly">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Payment_method</th>
+                        <th>Payment Ref</th>
+                        <th>Amount_EA</th>
+                        <th>Amount_Z_com</th>
+                        <th>Amount_M_com</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>User</th>
+                    </thead>
+                    {% for p in payments_this_week.objects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td> </td> <td>{{ p }}</td> <td>{{p.Payment_method}}</td><td>{{p.Payment_ref}}</td><td>{{p.Amount_EA}}</td>
+                        <td>{{p.Amount_Z_com}}</td><td>{{p.Amount_M_com}}</td><td>{{p.Amount}}</td><td>{{p.Date_created}}</td><td>{{p.user}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tfoot>
+                        <tr>
+                            <td></td><td>Total</td><td></td><td></td>
+                            <td>{{payments_this_week.amount_ea}}</td>
+                            <td>{{payments_this_week.amount_z_com}}</td>
+                            <td>{{payments_this_week.amount_m_com}}</td>
+                            <td>{{payments_this_week.amount}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        </tfoot>
+                </table>
+                <button class="btn-secondary" id="weekButton">Generate PDF</button>
+                <button class="btn-secondary" id="weekButtonX">Generate XLS</button>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <!-- Monthly queries -->
+        {% if payments_this_month.objects %}
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Monthly</h6>
+                <table class="table table-striped table-hover" id="monthly">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Payment_method</th>
+                        <th>Payment Ref</th>
+                        <th>Amount_EA</th>
+                        <th>Amount_Z_com</th>
+                        <th>Amount_M_com</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>User</th>
+                    </thead>
+                    {% for p in payments_this_month.objects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td><td>{{ p }}</td> <td>{{p.Payment_method}}</td><td>{{p.Payment_ref}}</td><td>{{p.Amount_EA}}</td>
+                        <td>{{p.Amount_Z_com}}</td><td>{{p.Amount_M_com}}</td><td>{{p.Amount}}</td><td>{{p.Date_created}}</td><td>{{p.user}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tfoot>
+                        <tr>
+                            <td></td><td>Total</td><td></td><td></td>
+                            <td>{{payments_this_month.amount_ea}}</td>
+                            <td>{{payments_this_month.amount_z_com}}</td>
+                            <td>{{payments_this_month.amount_m_com}}</td>
+                            <td>{{payments_this_month.amount}}</td>
+                            <td></td><td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <button class="btn-secondary" id="monthButton">Generate PDF</button>
+                <button class="btn-secondary" id="monthButtonX">Generate XLS</button>
+
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+{% endblock %}

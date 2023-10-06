@@ -1,0 +1,144 @@
+{% extends 'booking_brain/base.html' %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-line fa-3x text-dark"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-dark">EBIRR</p>
+                    {% if payments_day_ebirr %}
+                    <h6 class="mb-0">Today : <strong> {{ payments_day_ebirr }}</strong></h6>
+                    {% endif %}
+                    {% if payments_week_ebirr %}
+                    <h6 class="mb-0">Week : {{ payments_week_ebirr }}</h6>
+                    {% endif %}
+                    {% if payments_month_ebirr %}
+                    <h6 class="mb-0">Month  : <strong> {{ payments_month_ebirr }} </strong></h6>
+                    {% endif %}
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-success rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-bar fa-3x text-dark"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-dark">CBE</p>
+                    {% if payments_day_cbe %}
+                    <h6 class="mb-0">Today : <strong> {{ payments_day_cbe }}</strong></h6>
+                    {% endif %}
+                    {% if payments_week_cbe %}
+                    <h6 class="mb-0">Week : <strong> {{ payments_week_cbe }} </strong></h6>
+                    {% endif %}
+                    {% if payments_month_cbe %}
+                    <h6 class="mb-0">Month  : <strong> {{ payments_month_cbe }} </strong></h6>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-warning rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-area fa-3x text-dark"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-dark">ID A</p>
+                    {% if payments_day_ida %}
+                    <h6 class="mb-0">Today : <strong> {{ payments_day_ida }}</strong></h6>
+                    {% endif %}
+                    {% if payments_week_ida %}
+                    <h6 class="mb-0">Week : <strong> {{ payments_week_ida }} </strong></h6>
+                    {% endif %}
+                    {% if payments_month_ida %}
+                    <h6 class="mb-0">Month  : <strong> {{ payments_month_ida }} </strong></h6>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-primary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-pie fa-3x text-dark"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-dark">ID B</p>
+                    {% if payments_day_idb %}
+                    <h6 class="mb-0">Today : <strong> {{ payments_day_idb }}</strong></h6>
+                    {% endif %}
+                    {% if payments_week_idb %}
+                    <h6 class="mb-0">Week : <strong> {{ payments_week_idb }} </strong></h6>
+                    {% endif %}
+                    {% if payments_month_idb %}
+                    <h6 class="mb-0">Month  : <strong> {{ payments_month_idb }} </strong></h6>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <form method="POST" action="">
+                    {%csrf_token%}
+                    <label >Booking No</label>
+                    {% if booking %}
+                    <input id="bno" class="form-control" name="booking_no" type="text" value="{{booking.Booking_no}}" >
+                    {% else %}
+                    <input id="bno" class="form-control" name="booking_no" type="text" >
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">Check</button>
+                </form>
+            </div>
+        </div>
+</div>
+<div class="row g-4">
+        <div class="container-fluid pt-4 px-4">
+        {% if passenger and booking %}
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h1 style="color: red;">Up paid </h1>
+                    <a href="{% url 'make_payment' passenger.id  %}" class="btn btn-primary mb-4">Make Payment</a>
+                    <h6 class="mb-4"> Passenger Info </h6> 
+
+                
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <td>{{passenger.First_name}} {{passenger.Middle_name}} {{passenger.Last_name}}</td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <th>Booking NO</th>
+                        <td>{{booking.Booking_no}}</td>
+                    </tr>
+                    <tr>
+                        <th>Travel</th>
+                        <td>{{passenger.Departure_place}} >> {{passenger.Destination}}</td>
+                    </tr>
+                    <tr>
+                        <th>Departure Date</th>
+                        <td>{{passenger.Departure_date}} </td>
+                    </tr>
+                    <tr>
+                        <th>Return Date</th>
+                        <td>{{passenger.Return_date}} </td>
+                    </tr>
+                    <tr>
+                    <th>Amount</th>
+                    <td style="color: black;"><strong>{{passenger.Amount}} </strong></td>
+                    </tr>
+                    <tr>
+                    <th>Created Date</th>
+                    <td>{{passenger.Date_created}} </td>
+                    </tr>
+                </table>
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+   
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'booking_brain/base.html' %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+<div class="row g-4">
+<div class="col-sm-12 col-xl-6">
+    <div class="bg-light rounded h-100 p-4">
+      <h6 class="mb-4">Customer Information</h6>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label  class="form-label">Full name</label>
+
+            <div class="input-group mb-3">
+                {{form.First_name}}
+                {{form.Middle_name}}
+                {{form.Last_name}}
+            </div>
+            <label  class="form-label">Travel</label>
+            <div class="input-group mb-3">
+                {{form.Departure_place}}
+                {{form.Destination}}
+            </div>
+            <label  class="form-label">Dates</label>
+
+            <div class="input-group mb-3">
+                {{form.Departure_date}}
+                {{form.Return_date}}
+            </div>
+            <div class="input-group mb-3">
+                {{form.Amount}}
+                {{form.Phone_number}}
+            </div>
+            <div class="mb-3 form-check">
+                {{form.ReadyForBooking}}
+                <label class="form-check-label" for="exampleCheck1">Ready For Booking</label>
+            </div>
+            <button class="btn btn-primary" type="submit"> edit </button>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
